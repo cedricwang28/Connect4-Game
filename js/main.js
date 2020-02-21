@@ -36,7 +36,10 @@ $(function () {
             }
 
         }
+        checkVertical(clickedItem);
         checkHorizontal(clickedItem);
+        checkForward(clickedItem);
+        checkBackward(clickedItem);
     });
 
 
@@ -70,7 +73,10 @@ $(function () {
                 clickedItem = 2;
             }
         }
+        checkVertical(clickedItem);
         checkHorizontal(clickedItem);
+        checkForward(clickedItem);
+        checkBackward(clickedItem);
     });
 
 
@@ -104,7 +110,10 @@ $(function () {
                 clickedItem = 3;
             }
         }
+        checkVertical(clickedItem);
         checkHorizontal(clickedItem);
+        checkForward(clickedItem);
+        checkBackward(clickedItem);
     });
 
 
@@ -137,7 +146,10 @@ $(function () {
                 clickedItem = 4;
             }
         }
+        checkVertical(clickedItem);
         checkHorizontal(clickedItem);
+        checkForward(clickedItem);
+        checkBackward(clickedItem);
     });
 
 
@@ -170,7 +182,10 @@ $(function () {
                 clickedItem = 5;
             }
         }
+        checkVertical(clickedItem);
         checkHorizontal(clickedItem);
+        checkForward(clickedItem);
+        checkBackward(clickedItem);
     });
 
     $('.col6').hover(function () {
@@ -202,7 +217,10 @@ $(function () {
                 clickedItem = 6;
             }
         }
+        checkVertical(clickedItem);
         checkHorizontal(clickedItem);
+        checkForward(clickedItem);
+        checkBackward(clickedItem);
     });
 
     $('.col7').hover(function () {
@@ -234,7 +252,10 @@ $(function () {
                 clickedItem = 7;
             }
         }
+        checkVertical(clickedItem);
         checkHorizontal(clickedItem);
+        checkForward(clickedItem);
+        checkBackward(clickedItem);
     });
 
 
@@ -274,6 +295,144 @@ $(function () {
                 countConnect = 3;
                 if ($('.item').eq(itemNum - 4).attr('num') % 7 != 0 &&
                     $('.item').eq(itemNum - 4).find('img').attr('src')) {
+                    countConnect = 4;
+                }
+            }
+        }
+
+
+
+        if (countConnect == 4) {
+            setTimeout(function () {
+                alert('win');
+            }, 150);
+
+        }
+
+    }
+
+
+
+    function checkVertical(itemNum) {
+
+        countConnect = 1;
+
+        if ($('.item').eq(itemNum+6).attr('num') <=42 &&
+            $('.item').eq(itemNum+6).find('img').attr('src')) {
+            countConnect = 2;
+            if ($('.item').eq(itemNum + 13).attr('num') <=42 &&
+                $('.item').eq(itemNum + 13).find('img').attr('src')) {
+                countConnect = 3;
+                if ($('.item').eq(itemNum + 20).attr('num') <=42 &&
+                    $('.item').eq(itemNum + 20).find('img').attr('src')) {
+                    countConnect = 4;
+                }
+
+            } 
+
+        }
+
+
+
+        if (countConnect == 4) {
+            setTimeout(function () {
+                alert('win');
+            }, 150);
+
+        }
+
+    }
+
+
+
+    function checkForward(itemNum) {
+
+        countConnect = 1;
+
+        if ($('.item').eq(itemNum+5).attr('num') % 7 != 0 &&
+            $('.item').eq(itemNum+5).find('img').attr('src')) {
+            countConnect = 2;
+            if ($('.item').eq(itemNum + 11).attr('num') % 7 != 0 &&
+                $('.item').eq(itemNum + 11).find('img').attr('src')) {
+                countConnect = 3;
+                if ($('.item').eq(itemNum + 17).attr('num') % 7 != 0 &&
+                    $('.item').eq(itemNum + 17).find('img').attr('src')) {
+                    countConnect = 4;
+                }else if($('.item').eq(itemNum - 7).attr('num') % 7 != 1 &&
+                $('.item').eq(itemNum - 7).find('img').attr('src')){
+                    countConnect = 4;
+                }
+
+            } else if ($('.item').eq(itemNum - 7).attr('num') % 7 != 1 &&
+            $('.item').eq(itemNum - 7).find('img').attr('src')) {
+                countConnect = 3;
+                if ($('.item').eq(itemNum - 13).attr('num') % 7 != 1 &&
+                $('.item').eq(itemNum - 13).find('img').attr('src')) {
+                    countConnect = 4;
+                }
+            }
+
+        } else if ($('.item').eq(itemNum - 7).attr('num') % 7 != 1 &&
+            $('.item').eq(itemNum - 7).find('img').attr('src')) {
+            countConnect = 2;
+            if ($('.item').eq(itemNum - 13).attr('num') % 7 != 1 &&
+                $('.item').eq(itemNum - 13).find('img').attr('src')) {
+                countConnect = 3;
+                if ($('.item').eq(itemNum - 19).attr('num') % 7 != 1 &&
+                    $('.item').eq(itemNum - 19).find('img').attr('src')) {
+                    countConnect = 4;
+                }
+            }
+        }
+
+
+
+        if (countConnect == 4) {
+            setTimeout(function () {
+                alert('win');
+            }, 150);
+
+        }
+
+    }
+
+
+
+    function checkBackward(itemNum) {
+
+        countConnect = 1;
+
+        if ($('.item').eq(itemNum+7).attr('num') % 7 != 1 &&
+            $('.item').eq(itemNum+7).find('img').attr('src')) {
+            countConnect = 2;
+            if ($('.item').eq(itemNum + 15).attr('num') % 7 != 1 &&
+                $('.item').eq(itemNum + 15).find('img').attr('src')) {
+                countConnect = 3;
+                if ($('.item').eq(itemNum + 23).attr('num') % 7 != 1 &&
+                    $('.item').eq(itemNum + 23).find('img').attr('src')) {
+                    countConnect = 4;
+                }else if($('.item').eq(itemNum - 9).attr('num') % 7 != 0 &&
+                $('.item').eq(itemNum - 9).find('img').attr('src')){
+                    countConnect = 4;
+                }
+
+            } else if ($('.item').eq(itemNum - 9).attr('num') % 7 != 0 &&
+            $('.item').eq(itemNum - 9).find('img').attr('src')) {
+                countConnect = 3;
+                if ($('.item').eq(itemNum - 17).attr('num') % 7 != 0 &&
+                $('.item').eq(itemNum - 17).find('img').attr('src')) {
+                    countConnect = 4;
+                }
+            }
+
+        } else if ($('.item').eq(itemNum - 9).attr('num') % 7 != 0 &&
+            $('.item').eq(itemNum - 9).find('img').attr('src')) {
+            countConnect = 2;
+            if ($('.item').eq(itemNum - 17).attr('num') % 7 != 0 &&
+                $('.item').eq(itemNum - 17).find('img').attr('src')) {
+                countConnect = 3;
+                if ($('.item').eq(itemNum - 25).attr('num') % 7 != 0 &&
+                    $('.item').eq(itemNum - 25).find('img').attr('src')) {
                     countConnect = 4;
                 }
             }
