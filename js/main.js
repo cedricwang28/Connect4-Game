@@ -1,20 +1,20 @@
 $(function () {
-    let [ifOverCol1,ifOverCol2,ifOverCol3,ifOverCol4,ifOverCol5,ifOverCol6,ifOverCol7] = [0,0,0,0,0,0,0];
+    let [ifOverCol1, ifOverCol2, ifOverCol3, ifOverCol4, ifOverCol5, ifOverCol6, ifOverCol7] = [0, 0, 0, 0, 0, 0, 0];
     let clickedItem = 0;
     let countConnect = 0;
 
     $('.col1').hover(function () {
         ifOverCol1 = 1;
         $('.colHead1').find('img').attr("src", "./img/canada.png");
-        
+
     }, function () {
         ifOverCol1 = 0;
         $('.colHead1').find('img').attr("src", "");
-     
+
     });
     $(".col1").on("click", function () {
 
-        if(ifOverCol1){
+        if (ifOverCol1) {
             if (!$('.item36').find('img').attr('src')) {
                 $('.item36').find('img').attr('src', "./img/canada.png");
                 clickedItem = 36;
@@ -35,8 +35,8 @@ $(function () {
                 clickedItem = 1;
             }
 
-        }  
-        checkWin(clickedItem);
+        }
+        checkHorizontal(clickedItem);
     });
 
 
@@ -49,7 +49,7 @@ $(function () {
         $('.colHead2').find('img').attr("src", "");
     });
     $(".col2").on("click", function () {
-        if(ifOverCol2){
+        if (ifOverCol2) {
             if (!$('.item37').find('img').attr('src')) {
                 $('.item37').find('img').attr('src', "./img/canada.png");
                 clickedItem = 37;
@@ -69,8 +69,8 @@ $(function () {
                 $('.item2').find('img').attr('src', "./img/canada.png");
                 clickedItem = 2;
             }
-        }   
-        checkWin(clickedItem);
+        }
+        checkHorizontal(clickedItem);
     });
 
 
@@ -83,7 +83,7 @@ $(function () {
         $('.colHead3').find('img').attr("src", "");
     });
     $(".col3").on("click", function () {
-        if(ifOverCol3){
+        if (ifOverCol3) {
             if (!$('.item38').find('img').attr('src')) {
                 $('.item38').find('img').attr('src', "./img/canada.png");
                 clickedItem = 38;
@@ -103,8 +103,8 @@ $(function () {
                 $('.item3').find('img').attr('src', "./img/canada.png");
                 clickedItem = 3;
             }
-        }   
-        checkWin(clickedItem);
+        }
+        checkHorizontal(clickedItem);
     });
 
 
@@ -116,7 +116,7 @@ $(function () {
         $('.colHead4').find('img').attr("src", "");
     });
     $(".col4").on("click", function () {
-        if(ifOverCol4){
+        if (ifOverCol4) {
             if (!$('.item39').find('img').attr('src')) {
                 $('.item39').find('img').attr('src', "./img/canada.png");
                 clickedItem = 39;
@@ -136,8 +136,8 @@ $(function () {
                 $('.item4').find('img').attr('src', "./img/canada.png");
                 clickedItem = 4;
             }
-        }   
-        checkWin(clickedItem);
+        }
+        checkHorizontal(clickedItem);
     });
 
 
@@ -149,7 +149,7 @@ $(function () {
         $('.colHead5').find('img').attr("src", "");
     });
     $(".col5").on("click", function () {
-        if(ifOverCol5){
+        if (ifOverCol5) {
             if (!$('.item40').find('img').attr('src')) {
                 $('.item40').find('img').attr('src', "./img/canada.png");
                 clickedItem = 40;
@@ -169,8 +169,8 @@ $(function () {
                 $('.item5').find('img').attr('src', "./img/canada.png");
                 clickedItem = 5;
             }
-        }   
-        checkWin(clickedItem);
+        }
+        checkHorizontal(clickedItem);
     });
 
     $('.col6').hover(function () {
@@ -181,7 +181,7 @@ $(function () {
         $('.colHead6').find('img').attr("src", "");
     });
     $(".col6").on("click", function () {
-        if(ifOverCol6){
+        if (ifOverCol6) {
             if (!$('.item41').find('img').attr('src')) {
                 $('.item41').find('img').attr('src', "./img/canada.png");
                 clickedItem = 41;
@@ -201,8 +201,8 @@ $(function () {
                 $('.item6').find('img').attr('src', "./img/canada.png");
                 clickedItem = 6;
             }
-        }   
-        checkWin(clickedItem);
+        }
+        checkHorizontal(clickedItem);
     });
 
     $('.col7').hover(function () {
@@ -213,7 +213,7 @@ $(function () {
         $('.colHead7').find('img').attr("src", "");
     });
     $(".col7").on("click", function () {
-        if(ifOverCol7){
+        if (ifOverCol7) {
             if (!$('.item42').find('img').attr('src')) {
                 $('.item42').find('img').attr('src', "./img/canada.png");
                 clickedItem = 42;
@@ -233,33 +233,60 @@ $(function () {
                 $('.item7').find('img').attr('src', "./img/canada.png");
                 clickedItem = 7;
             }
-        }   
-        checkWin(clickedItem);
+        }
+        checkHorizontal(clickedItem);
     });
 
 
 
-    function checkWin(itemNum){
+    function checkHorizontal(itemNum) {
+
         countConnect = 1;
 
-        if($('.item').eq(itemNum).attr('num')%7 != 1){
-            if($('.item').eq(itemNum).find('img').attr('src')){
-                countConnect=2;
-                if($('.item').eq(itemNum+1).attr('num')%7 != 1){
-                    if($('.item').eq(itemNum+1).find('img').attr('src')){
-                        countConnect=3;
-                        if($('.item').eq(itemNum+2).attr('num')%7 != 1){
-                            if($('.item').eq(itemNum+1).find('img').attr('src')){
-                                countConnect=4;
-                                alert('win');
-                            }
-                        }
-                    }
+        if ($('.item').eq(itemNum).attr('num') % 7 != 1 &&
+            $('.item').eq(itemNum).find('img').attr('src')) {
+            countConnect = 2;
+            if ($('.item').eq(itemNum + 1).attr('num') % 7 != 1 &&
+                $('.item').eq(itemNum + 1).find('img').attr('src')) {
+                countConnect = 3;
+                if ($('.item').eq(itemNum + 2).attr('num') % 7 != 1 &&
+                    $('.item').eq(itemNum + 2).find('img').attr('src')) {
+                    countConnect = 4;
+                }else if($('.item').eq(itemNum - 2).attr('num') % 7 != 0 &&
+                $('.item').eq(itemNum - 2).find('img').attr('src')){
+                    countConnect = 4;
+                }
+
+            } else if ($('.item').eq(itemNum - 2).attr('num') % 7 != 0 &&
+                $('.item').eq(itemNum - 2).find('img').attr('src')) {
+                countConnect = 3;
+                if ($('.item').eq(itemNum - 3).attr('num') % 7 != 0 &&
+                    $('.item').eq(itemNum - 3).find('img').attr('src')) {
+                    countConnect = 4;
                 }
             }
-            
+
+        } else if ($('.item').eq(itemNum - 2).attr('num') % 7 != 0 &&
+            $('.item').eq(itemNum - 2).find('img').attr('src')) {
+            countConnect = 2;
+            if ($('.item').eq(itemNum - 3).attr('num') % 7 != 0 &&
+                $('.item').eq(itemNum - 3).find('img').attr('src')) {
+                countConnect = 3;
+                if ($('.item').eq(itemNum - 4).attr('num') % 7 != 0 &&
+                    $('.item').eq(itemNum - 4).find('img').attr('src')) {
+                    countConnect = 4;
+                }
+            }
         }
 
+
+
+        if (countConnect == 4) {
+            setTimeout(function () {
+                alert('win');
+            }, 150);
+
+        }
 
     }
 
