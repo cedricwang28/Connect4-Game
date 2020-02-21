@@ -1,5 +1,7 @@
 $(function () {
     let [ifOverCol1,ifOverCol2,ifOverCol3,ifOverCol4,ifOverCol5,ifOverCol6,ifOverCol7] = [0,0,0,0,0,0,0];
+    let clickedItem = 0;
+    let countConnect = 0;
 
     $('.col1').hover(function () {
         ifOverCol1 = 1;
@@ -11,22 +13,30 @@ $(function () {
      
     });
     $(".col1").on("click", function () {
+
         if(ifOverCol1){
             if (!$('.item36').find('img').attr('src')) {
                 $('.item36').find('img').attr('src', "./img/canada.png");
+                clickedItem = 36;
             } else if (!$('.item29').find('img').attr('src')) {
                 $('.item29').find('img').attr('src', "./img/canada.png");
+                clickedItem = 29;
             } else if (!$('.item22').find('img').attr('src')) {
                 $('.item22').find('img').attr('src', "./img/canada.png");
+                clickedItem = 22;
             } else if (!$('.item15').find('img').attr('src')) {
                 $('.item15').find('img').attr('src', "./img/canada.png");
+                clickedItem = 15;
             } else if (!$('.item8').find('img').attr('src')) {
                 $('.item8').find('img').attr('src', "./img/canada.png");
+                clickedItem = 8;
             } else {
                 $('.item1').find('img').attr('src', "./img/canada.png");
+                clickedItem = 1;
             }
+
         }  
-        
+        checkWin(clickedItem);
     });
 
 
@@ -42,18 +52,25 @@ $(function () {
         if(ifOverCol2){
             if (!$('.item37').find('img').attr('src')) {
                 $('.item37').find('img').attr('src', "./img/canada.png");
+                clickedItem = 37;
             } else if (!$('.item30').find('img').attr('src')) {
                 $('.item30').find('img').attr('src', "./img/canada.png");
+                clickedItem = 30;
             } else if (!$('.item23').find('img').attr('src')) {
                 $('.item23').find('img').attr('src', "./img/canada.png");
+                clickedItem = 23;
             } else if (!$('.item16').find('img').attr('src')) {
                 $('.item16').find('img').attr('src', "./img/canada.png");
+                clickedItem = 16;
             } else if (!$('.item9').find('img').attr('src')) {
                 $('.item9').find('img').attr('src', "./img/canada.png");
+                clickedItem = 9;
             } else {
                 $('.item2').find('img').attr('src', "./img/canada.png");
+                clickedItem = 2;
             }
         }   
+        checkWin(clickedItem);
     });
 
 
@@ -69,18 +86,25 @@ $(function () {
         if(ifOverCol3){
             if (!$('.item38').find('img').attr('src')) {
                 $('.item38').find('img').attr('src', "./img/canada.png");
+                clickedItem = 38;
             } else if (!$('.item31').find('img').attr('src')) {
                 $('.item31').find('img').attr('src', "./img/canada.png");
+                clickedItem = 31;
             } else if (!$('.item24').find('img').attr('src')) {
                 $('.item24').find('img').attr('src', "./img/canada.png");
+                clickedItem = 24;
             } else if (!$('.item17').find('img').attr('src')) {
                 $('.item17').find('img').attr('src', "./img/canada.png");
+                clickedItem = 17;
             } else if (!$('.item10').find('img').attr('src')) {
                 $('.item10').find('img').attr('src', "./img/canada.png");
+                clickedItem = 10;
             } else {
                 $('.item3').find('img').attr('src', "./img/canada.png");
+                clickedItem = 3;
             }
         }   
+        checkWin(clickedItem);
     });
 
 
@@ -95,19 +119,27 @@ $(function () {
         if(ifOverCol4){
             if (!$('.item39').find('img').attr('src')) {
                 $('.item39').find('img').attr('src', "./img/canada.png");
+                clickedItem = 39;
             } else if (!$('.item32').find('img').attr('src')) {
                 $('.item32').find('img').attr('src', "./img/canada.png");
+                clickedItem = 32;
             } else if (!$('.item25').find('img').attr('src')) {
                 $('.item25').find('img').attr('src', "./img/canada.png");
+                clickedItem = 25;
             } else if (!$('.item18').find('img').attr('src')) {
                 $('.item18').find('img').attr('src', "./img/canada.png");
+                clickedItem = 18;
             } else if (!$('.item11').find('img').attr('src')) {
                 $('.item11').find('img').attr('src', "./img/canada.png");
+                clickedItem = 11;
             } else {
                 $('.item4').find('img').attr('src', "./img/canada.png");
+                clickedItem = 4;
             }
         }   
+        checkWin(clickedItem);
     });
+
 
     $('.col5').hover(function () {
         ifOverCol5 = 1;
@@ -120,18 +152,25 @@ $(function () {
         if(ifOverCol5){
             if (!$('.item40').find('img').attr('src')) {
                 $('.item40').find('img').attr('src', "./img/canada.png");
+                clickedItem = 40;
             } else if (!$('.item33').find('img').attr('src')) {
                 $('.item33').find('img').attr('src', "./img/canada.png");
+                clickedItem = 33;
             } else if (!$('.item26').find('img').attr('src')) {
                 $('.item26').find('img').attr('src', "./img/canada.png");
+                clickedItem = 26;
             } else if (!$('.item19').find('img').attr('src')) {
                 $('.item19').find('img').attr('src', "./img/canada.png");
+                clickedItem = 19;
             } else if (!$('.item12').find('img').attr('src')) {
                 $('.item12').find('img').attr('src', "./img/canada.png");
+                clickedItem = 12;
             } else {
                 $('.item5').find('img').attr('src', "./img/canada.png");
+                clickedItem = 5;
             }
         }   
+        checkWin(clickedItem);
     });
 
     $('.col6').hover(function () {
@@ -145,18 +184,25 @@ $(function () {
         if(ifOverCol6){
             if (!$('.item41').find('img').attr('src')) {
                 $('.item41').find('img').attr('src', "./img/canada.png");
+                clickedItem = 41;
             } else if (!$('.item34').find('img').attr('src')) {
                 $('.item34').find('img').attr('src', "./img/canada.png");
+                clickedItem = 34;
             } else if (!$('.item27').find('img').attr('src')) {
                 $('.item27').find('img').attr('src', "./img/canada.png");
+                clickedItem = 27;
             } else if (!$('.item20').find('img').attr('src')) {
                 $('.item20').find('img').attr('src', "./img/canada.png");
+                clickedItem = 20;
             } else if (!$('.item13').find('img').attr('src')) {
                 $('.item13').find('img').attr('src', "./img/canada.png");
+                clickedItem = 13;
             } else {
                 $('.item6').find('img').attr('src', "./img/canada.png");
+                clickedItem = 6;
             }
         }   
+        checkWin(clickedItem);
     });
 
     $('.col7').hover(function () {
@@ -170,23 +216,52 @@ $(function () {
         if(ifOverCol7){
             if (!$('.item42').find('img').attr('src')) {
                 $('.item42').find('img').attr('src', "./img/canada.png");
+                clickedItem = 42;
             } else if (!$('.item35').find('img').attr('src')) {
                 $('.item35').find('img').attr('src', "./img/canada.png");
+                clickedItem = 35;
             } else if (!$('.item28').find('img').attr('src')) {
                 $('.item28').find('img').attr('src', "./img/canada.png");
+                clickedItem = 28;
             } else if (!$('.item21').find('img').attr('src')) {
                 $('.item21').find('img').attr('src', "./img/canada.png");
+                clickedItem = 21;
             } else if (!$('.item14').find('img').attr('src')) {
                 $('.item14').find('img').attr('src', "./img/canada.png");
+                clickedItem = 14;
             } else {
                 $('.item7').find('img').attr('src', "./img/canada.png");
+                clickedItem = 7;
             }
         }   
+        checkWin(clickedItem);
     });
 
 
 
+    function checkWin(itemNum){
+        countConnect = 1;
 
+        if($('.item').eq(itemNum).attr('num')%7 != 1){
+            if($('.item').eq(itemNum).find('img').attr('src')){
+                countConnect=2;
+                if($('.item').eq(itemNum+1).attr('num')%7 != 1){
+                    if($('.item').eq(itemNum+1).find('img').attr('src')){
+                        countConnect=3;
+                        if($('.item').eq(itemNum+2).attr('num')%7 != 1){
+                            if($('.item').eq(itemNum+1).find('img').attr('src')){
+                                countConnect=4;
+                                alert('win');
+                            }
+                        }
+                    }
+                }
+            }
+            
+        }
+
+
+    }
 
 
 
