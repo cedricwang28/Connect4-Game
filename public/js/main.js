@@ -3,33 +3,57 @@ $(function () {
     let socket = io();
 
     let srcImg;
+    let ifFreeze = 0;
     
-    $(document).click(function(){
+    
+    
+    $(document).click(function(e){
+        console.log(this);
+    
         socket.emit('input',{
             item: clickedItem,
             flag: srcImg
         });
+        // socket.emit('shiftTurn');
+        // ifFreeze = 1;
+        // socket.emit('shiftTurn');
+        // if(ifFreeze){
+        //     $('.overlap').show();
+        //     socket.emit('shiftTurn');
+        // }
     });
 
+    socket.on('shiftTurnSync',()=>{
+        // if(ifFreeze){
+        //     $('.overlap').show();
+        // }else{
+        //     $('.overlap').hide();
+        // }
+        $('.overlap').toggle();
+    });
     
 
     socket.on('identity',(data)=>{
     
         if(data==0){
-            $('.identity').html('Player1: Canada');
+           
+            $('.identity').html('You are Canada(player1)');
             $('.notice').html("Wait for Another Player");
             srcImg = './img/canada.png';
         }
         if(data==1){
-            $('.identity').html('Player2: USA');
+            $('.overlap').show();
+            $('.identity').html('You are USA(player2)');
             srcImg = './img/usa.png';
         }
 
         if(data>1){
-            $('.identity').html(data);
-            document.addEventListener('click',function(){
+            $('.identity').html("Visitor");
+            document.addEventListener('click',function(e){
+                e.stopPropagation();
                 return false;
             },true);
+            
         }
     });
 
@@ -462,7 +486,7 @@ $(function () {
                     hightlight.push($(value).attr("num"));
                 });
                 socket.emit("hightlight",hightlight);
-                
+                $('.overlap').show();
                 
             }, 100);
         }else{
@@ -520,7 +544,7 @@ $(function () {
                     hightlight.push($(value).attr("num"));
                 });
                 socket.emit("hightlight",hightlight);
-
+                $('.overlap').show();
             }, 100);
 
         }else{
@@ -615,7 +639,7 @@ $(function () {
                     hightlight.push($(value).attr("num"));
                 });
                 socket.emit("hightlight",hightlight);
-
+                $('.overlap').show();
             }, 100);
 
         }else{
@@ -710,7 +734,7 @@ $(function () {
                     hightlight.push($(value).attr("num"));
                 });
                 socket.emit("hightlight",hightlight);
-                
+                $('.overlap').show();
             }, 100);
 
         }else{
@@ -720,7 +744,9 @@ $(function () {
     }
 
 
-
+    $('.restart').click(function(){
+        window.location.reload();
+    });
 
     
 

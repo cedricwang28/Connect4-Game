@@ -26,6 +26,10 @@ io.on('connection',function(socket){
         io.emit("hightlightSync",data);
     });
 
+    socket.on('shiftTurn',()=>{
+        io.emit("shiftTurnSync");
+    });
+
     if(connections.length == 1){
         socket.emit('wait');
     }
