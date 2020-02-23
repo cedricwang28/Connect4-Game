@@ -17,6 +17,7 @@ $(function () {
     
         if(data==0){
             $('.identity').html('Player1: Canada');
+            $('.notice').html("Wait for Another Player");
             srcImg = './img/canada.png';
         }
         if(data==1){
@@ -40,6 +41,16 @@ $(function () {
         $('.notice').html(data);
     });
 
+    socket.on("hightlightSync",(data)=>{
+        $.each(data,function(i,v){
+            $('.item').eq(v-1).css('background-color','yellow');
+        });
+    });
+
+    socket.on('reload',()=>{
+        window.location.reload();
+    });
+
     
     
     
@@ -56,6 +67,8 @@ $(function () {
     let clickedItem = 0;
     let countConnect = 0;
     let whoWin;
+    let ifConnect = 0;
+    let hightlight = [];
 
     $('.col1').hover(function () {
         ifOverCol1 = 1;
@@ -91,9 +104,16 @@ $(function () {
 
         }
         checkVertical(clickedItem);
-        checkHorizontal(clickedItem);
-        checkForward(clickedItem);
-        checkBackward(clickedItem);
+        if(ifConnect == 0){
+            checkHorizontal(clickedItem);
+        }
+        if(ifConnect == 0){
+            checkForward(clickedItem);
+        }
+        if(ifConnect == 0){
+            checkBackward(clickedItem);
+        }
+        
     });
 
 
@@ -128,9 +148,15 @@ $(function () {
             }
         }
         checkVertical(clickedItem);
-        checkHorizontal(clickedItem);
-        checkForward(clickedItem);
-        checkBackward(clickedItem);
+        if(ifConnect == 0){
+            checkHorizontal(clickedItem);
+        }
+        if(ifConnect == 0){
+            checkForward(clickedItem);
+        }
+        if(ifConnect == 0){
+            checkBackward(clickedItem);
+        }
     });
 
 
@@ -165,9 +191,16 @@ $(function () {
             }
         }
         checkVertical(clickedItem);
-        checkHorizontal(clickedItem);
-        checkForward(clickedItem);
-        checkBackward(clickedItem);
+        if(ifConnect == 0){
+            checkHorizontal(clickedItem);
+        }
+        if(ifConnect == 0){
+            checkForward(clickedItem);
+        }
+        if(ifConnect == 0){
+            checkBackward(clickedItem);
+        }
+
     });
 
 
@@ -201,9 +234,15 @@ $(function () {
             }
         }
         checkVertical(clickedItem);
-        checkHorizontal(clickedItem);
-        checkForward(clickedItem);
-        checkBackward(clickedItem);
+        if(ifConnect == 0){
+            checkHorizontal(clickedItem);
+        }
+        if(ifConnect == 0){
+            checkForward(clickedItem);
+        }
+        if(ifConnect == 0){
+            checkBackward(clickedItem);
+        }
     });
 
 
@@ -237,9 +276,15 @@ $(function () {
             }
         }
         checkVertical(clickedItem);
-        checkHorizontal(clickedItem);
-        checkForward(clickedItem);
-        checkBackward(clickedItem);
+        if(ifConnect == 0){
+            checkHorizontal(clickedItem);
+        }
+        if(ifConnect == 0){
+            checkForward(clickedItem);
+        }
+        if(ifConnect == 0){
+            checkBackward(clickedItem);
+        }
     });
 
     $('.col6').hover(function () {
@@ -272,9 +317,15 @@ $(function () {
             }
         }
         checkVertical(clickedItem);
-        checkHorizontal(clickedItem);
-        checkForward(clickedItem);
-        checkBackward(clickedItem);
+        if(ifConnect == 0){
+            checkHorizontal(clickedItem);
+        }
+        if(ifConnect == 0){
+            checkForward(clickedItem);
+        }
+        if(ifConnect == 0){
+            checkBackward(clickedItem);
+        }
     });
 
     $('.col7').hover(function () {
@@ -307,10 +358,21 @@ $(function () {
             }
         }
         checkVertical(clickedItem);
-        checkHorizontal(clickedItem);
-        checkForward(clickedItem);
-        checkBackward(clickedItem);
+        if(ifConnect == 0){
+            checkHorizontal(clickedItem);
+        }
+        if(ifConnect == 0){
+            checkForward(clickedItem);
+        }
+        if(ifConnect == 0){
+            checkBackward(clickedItem);
+        }
     });
+
+
+
+
+
 
 
 
@@ -384,6 +446,7 @@ $(function () {
 
 
         if (countConnect == 4) {
+            ifConnect = 1;
             setTimeout(function () {
                 if(srcImg == './img/canada.png'){
                     whoWin = 'Canada Wins !';
@@ -394,9 +457,16 @@ $(function () {
                 }
 
                 socket.emit('winInfo',whoWin);
-                $('.showConnection').css("background-color","yellow")
+                $('.showConnection').css("background-color","yellow");
+                $.each( $('.showConnection'), function( key, value ){
+                    hightlight.push($(value).attr("num"));
+                });
+                socket.emit("hightlight",hightlight);
+                
+                
             }, 100);
-
+        }else{
+            $('.showConnection').removeClass('showConnection');
         }
 
     }
@@ -406,16 +476,25 @@ $(function () {
     function checkVertical(itemNum) {
 
         countConnect = 1;
+        $('.item').eq(itemNum-1).addClass('showConnection');
 
         if ($('.item').eq(itemNum+6).attr('num') <=42 &&
             $('.item').eq(itemNum+6).find('img').attr('src')==srcImg) {
+
             countConnect = 2;
+            $('.item').eq(itemNum+6).addClass('showConnection');
+
             if ($('.item').eq(itemNum + 13).attr('num') <=42 &&
                 $('.item').eq(itemNum + 13).find('img').attr('src')==srcImg) {
+
                 countConnect = 3;
+                $('.item').eq(itemNum+13).addClass('showConnection');
+
                 if ($('.item').eq(itemNum + 20).attr('num') <=42 &&
                     $('.item').eq(itemNum + 20).find('img').attr('src')==srcImg) {
+
                     countConnect = 4;
+                    $('.item').eq(itemNum+20).addClass('showConnection');
                 }
 
             } 
@@ -425,6 +504,7 @@ $(function () {
 
 
         if (countConnect == 4) {
+            ifConnect = 1;
             setTimeout(function () {
                 if(srcImg == './img/canada.png'){
                     whoWin = 'Canada Wins !';
@@ -435,8 +515,16 @@ $(function () {
                 }
 
                 socket.emit('winInfo',whoWin);
+                $('.showConnection').css("background-color","yellow");
+                $.each( $('.showConnection'), function( key, value ){
+                    hightlight.push($(value).attr("num"));
+                });
+                socket.emit("hightlight",hightlight);
+
             }, 100);
 
+        }else{
+            $('.showConnection').removeClass('showConnection');
         }
 
     }
@@ -446,39 +534,64 @@ $(function () {
     function checkForward(itemNum) {
 
         countConnect = 1;
+        $('.item').eq(itemNum-1).addClass('showConnection');
 
         if ($('.item').eq(itemNum+5).attr('num') % 7 != 0 &&
             $('.item').eq(itemNum+5).find('img').attr('src')==srcImg) {
+
             countConnect = 2;
+            $('.item').eq(itemNum+5).addClass('showConnection');
+
             if ($('.item').eq(itemNum + 11).attr('num') % 7 != 0 &&
                 $('.item').eq(itemNum + 11).find('img').attr('src')==srcImg) {
+
                 countConnect = 3;
+                $('.item').eq(itemNum+11).addClass('showConnection');
+
                 if ($('.item').eq(itemNum + 17).attr('num') % 7 != 0 &&
                     $('.item').eq(itemNum + 17).find('img').attr('src')==srcImg) {
+
                     countConnect = 4;
+                    $('.item').eq(itemNum+17).addClass('showConnection');
+
                 }else if($('.item').eq(itemNum - 7).attr('num') % 7 != 1 &&
                 $('.item').eq(itemNum - 7).find('img').attr('src')==srcImg){
+
                     countConnect = 4;
+                    $('.item').eq(itemNum-7).addClass('showConnection');
                 }
 
             } else if ($('.item').eq(itemNum - 7).attr('num') % 7 != 1 &&
             $('.item').eq(itemNum - 7).find('img').attr('src')==srcImg) {
+
                 countConnect = 3;
+                $('.item').eq(itemNum-7).addClass('showConnection');
+
                 if ($('.item').eq(itemNum - 13).attr('num') % 7 != 1 &&
                 $('.item').eq(itemNum - 13).find('img').attr('src')==srcImg) {
+
                     countConnect = 4;
+                    $('.item').eq(itemNum-13).addClass('showConnection');
                 }
             }
 
         } else if ($('.item').eq(itemNum - 7).attr('num') % 7 != 1 &&
             $('.item').eq(itemNum - 7).find('img').attr('src')==srcImg) {
+
             countConnect = 2;
+            $('.item').eq(itemNum-7).addClass('showConnection');
+
             if ($('.item').eq(itemNum - 13).attr('num') % 7 != 1 &&
                 $('.item').eq(itemNum - 13).find('img').attr('src')==srcImg) {
+
                 countConnect = 3;
+                $('.item').eq(itemNum-13).addClass('showConnection');
+
                 if ($('.item').eq(itemNum - 19).attr('num') % 7 != 1 &&
                     $('.item').eq(itemNum - 19).find('img').attr('src')==srcImg) {
+
                     countConnect = 4;
+                    $('.item').eq(itemNum-19).addClass('showConnection');
                 }
             }
         }
@@ -486,14 +599,27 @@ $(function () {
 
 
         if (countConnect == 4) {
+            ifConnect = 1;
             setTimeout(function () {
                 if(srcImg == './img/canada.png'){
-                    $('.notice').html('Canada Wins !');
+                    whoWin = 'Canada Wins !';
+                    $('.notice').html(whoWin);
                 }else{
-                    $('.notice').html('USA Wins !');
+                    whoWin = 'USA Wins !';
+                    $('.notice').html(whoWin);
                 }
+
+                socket.emit('winInfo',whoWin);
+                $('.showConnection').css("background-color","yellow");
+                $.each( $('.showConnection'), function( key, value ){
+                    hightlight.push($(value).attr("num"));
+                });
+                socket.emit("hightlight",hightlight);
+
             }, 100);
 
+        }else{
+            $('.showConnection').removeClass('showConnection');
         }
 
     }
@@ -503,39 +629,64 @@ $(function () {
     function checkBackward(itemNum) {
 
         countConnect = 1;
+        $('.item').eq(itemNum-1).addClass('showConnection');
 
         if ($('.item').eq(itemNum+7).attr('num') % 7 != 1 &&
             $('.item').eq(itemNum+7).find('img').attr('src')==srcImg) {
+
             countConnect = 2;
+            $('.item').eq(itemNum+7).addClass('showConnection');
+
             if ($('.item').eq(itemNum + 15).attr('num') % 7 != 1 &&
                 $('.item').eq(itemNum + 15).find('img').attr('src')==srcImg) {
+
                 countConnect = 3;
+                $('.item').eq(itemNum+15).addClass('showConnection');
+
                 if ($('.item').eq(itemNum + 23).attr('num') % 7 != 1 &&
                     $('.item').eq(itemNum + 23).find('img').attr('src')==srcImg) {
+
                     countConnect = 4;
+                    $('.item').eq(itemNum+23).addClass('showConnection');
+
                 }else if($('.item').eq(itemNum - 9).attr('num') % 7 != 0 &&
                 $('.item').eq(itemNum - 9).find('img').attr('src')==srcImg){
+
                     countConnect = 4;
+                    $('.item').eq(itemNum-9).addClass('showConnection');
                 }
 
             } else if ($('.item').eq(itemNum - 9).attr('num') % 7 != 0 &&
             $('.item').eq(itemNum - 9).find('img').attr('src')==srcImg) {
+
                 countConnect = 3;
+                $('.item').eq(itemNum-9).addClass('showConnection');
+
                 if ($('.item').eq(itemNum - 17).attr('num') % 7 != 0 &&
                 $('.item').eq(itemNum - 17).find('img').attr('src')==srcImg) {
+
                     countConnect = 4;
+                    $('.item').eq(itemNum-17).addClass('showConnection');
                 }
             }
 
         } else if ($('.item').eq(itemNum - 9).attr('num') % 7 != 0 &&
             $('.item').eq(itemNum - 9).find('img').attr('src')==srcImg) {
+
             countConnect = 2;
+            $('.item').eq(itemNum-9).addClass('showConnection');
+
             if ($('.item').eq(itemNum - 17).attr('num') % 7 != 0 &&
                 $('.item').eq(itemNum - 17).find('img').attr('src')==srcImg) {
+                    
                 countConnect = 3;
+                $('.item').eq(itemNum-17).addClass('showConnection');
+
                 if ($('.item').eq(itemNum - 25).attr('num') % 7 != 0 &&
                     $('.item').eq(itemNum - 25).find('img').attr('src')==srcImg) {
+
                     countConnect = 4;
+                    $('.item').eq(itemNum-25).addClass('showConnection');
                 }
             }
         }
@@ -543,14 +694,27 @@ $(function () {
 
 
         if (countConnect == 4) {
+            ifConnect = 1;
             setTimeout(function () {
                 if(srcImg == './img/canada.png'){
-                    $('.notice').html('Canada Wins !');
+                    whoWin = 'Canada Wins !';
+                    $('.notice').html(whoWin);
                 }else{
-                    $('.notice').html('USA Wins !');
+                    whoWin = 'USA Wins !';
+                    $('.notice').html(whoWin);
                 }
+
+                socket.emit('winInfo',whoWin);
+                $('.showConnection').css("background-color","yellow");
+                $.each( $('.showConnection'), function( key, value ){
+                    hightlight.push($(value).attr("num"));
+                });
+                socket.emit("hightlight",hightlight);
+                
             }, 100);
 
+        }else{
+            $('.showConnection').removeClass('showConnection');
         }
 
     }

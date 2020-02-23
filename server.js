@@ -21,10 +21,21 @@ io.on('connection',function(socket){
         io.emit('syncWin',data);
     });
 
+    socket.on("hightlight",(data)=>{
+        
+        io.emit("hightlightSync",data);
+    });
+
+    if(connections.length == 1){
+        socket.emit('wait');
+    }
+
 
     socket.on('disconnect',()=>{
+        if(connections.indexOf(socket) == 0 || connections.indexOf(socket) == 1){
+            io.emit('reload');
+        }
         connections.splice(connections.indexOf(socket),1);
-        
     });
     
 })
