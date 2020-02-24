@@ -30,6 +30,10 @@ io.on('connection',function(socket){
         io.emit("shiftTurnSync");
     });
 
+    socket.on("gameover",()=>{
+        io.emit('gameoverSync');
+    })
+
     if(connections.length == 1){
         socket.emit('wait');
     }

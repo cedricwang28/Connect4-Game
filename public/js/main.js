@@ -3,89 +3,7 @@ $(function () {
     let socket = io();
 
     let srcImg;
-    let ifFreeze = 0;
-    
-    
-    
-    $(document).click(function(e){
-        console.log(this);
-    
-        socket.emit('input',{
-            item: clickedItem,
-            flag: srcImg
-        });
-        // socket.emit('shiftTurn');
-        // ifFreeze = 1;
-        // socket.emit('shiftTurn');
-        // if(ifFreeze){
-        //     $('.overlap').show();
-        //     socket.emit('shiftTurn');
-        // }
-    });
-
-    socket.on('shiftTurnSync',()=>{
-        // if(ifFreeze){
-        //     $('.overlap').show();
-        // }else{
-        //     $('.overlap').hide();
-        // }
-        $('.overlap').toggle();
-    });
-    
-
-    socket.on('identity',(data)=>{
-    
-        if(data==0){
-           
-            $('.identity').html('You are Canada(player1)');
-            $('.notice').html("Wait for Another Player");
-            srcImg = './img/canada.png';
-        }
-        if(data==1){
-            $('.overlap').show();
-            $('.identity').html('You are USA(player2)');
-            srcImg = './img/usa.png';
-        }
-
-        if(data>1){
-            $('.identity').html("Visitor");
-            document.addEventListener('click',function(e){
-                e.stopPropagation();
-                return false;
-            },true);
-            
-        }
-    });
-
-    socket.on('sync',(data)=>{
-        $('.item').eq(data.item-1).find('img').attr('src',data.flag);
-    });
-    
-    socket.on('syncWin',(data)=>{
-        $('.notice').html(data);
-    });
-
-    socket.on("hightlightSync",(data)=>{
-        $.each(data,function(i,v){
-            $('.item').eq(v-1).css('background-color','yellow');
-        });
-    });
-
-    socket.on('reload',()=>{
-        window.location.reload();
-    });
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-
+    let ifFreeze;
     
     let [ifOverCol1, ifOverCol2, ifOverCol3, ifOverCol4, ifOverCol5, ifOverCol6, ifOverCol7] = [0, 0, 0, 0, 0, 0, 0];
     let clickedItem = 0;
@@ -93,10 +11,13 @@ $(function () {
     let whoWin;
     let ifConnect = 0;
     let hightlight = [];
+    let freezeOrNot = 0;
 
     $('.col1').hover(function () {
-        ifOverCol1 = 1;
-        $('.colHead1').find('img').attr("src", srcImg);
+        if(freezeOrNot == 0){
+            ifOverCol1 = 1;
+            $('.colHead1').find('img').attr("src", srcImg);
+        } 
 
     }, function () {
         ifOverCol1 = 0;
@@ -105,7 +26,7 @@ $(function () {
     });
     $(".col1").on("click", function () {
 
-        if (ifOverCol1) {
+        if (ifOverCol1 && freezeOrNot == 0) {
             if (!$('.item36').find('img').attr('src')) {
                 $('.item36').find('img').attr('src', srcImg);
                 clickedItem = 36;
@@ -143,14 +64,16 @@ $(function () {
 
 
     $('.col2').hover(function () {
-        ifOverCol2 = 1;
-        $('.colHead2').find('img').attr("src", srcImg);
+        if(freezeOrNot == 0){
+            ifOverCol2 = 1;
+            $('.colHead2').find('img').attr("src", srcImg);
+        } 
     }, function () {
         ifOverCol2 = 0;
         $('.colHead2').find('img').attr("src", "");
     });
     $(".col2").on("click", function () {
-        if (ifOverCol2) {
+        if (ifOverCol2  && freezeOrNot == 0) {
             if (!$('.item37').find('img').attr('src')) {
                 $('.item37').find('img').attr('src', srcImg);
                 clickedItem = 37;
@@ -186,14 +109,16 @@ $(function () {
 
 
     $('.col3').hover(function () {
-        ifOverCol3 = 1;
-        $('.colHead3').find('img').attr("src", srcImg);
+        if(freezeOrNot == 0){
+            ifOverCol3 = 1;
+            $('.colHead3').find('img').attr("src", srcImg);
+        } 
     }, function () {
         ifOverCol3 = 0;
         $('.colHead3').find('img').attr("src", "");
     });
     $(".col3").on("click", function () {
-        if (ifOverCol3) {
+        if (ifOverCol3  && freezeOrNot == 0) {
             if (!$('.item38').find('img').attr('src')) {
                 $('.item38').find('img').attr('src', srcImg);
                 clickedItem = 38;
@@ -229,14 +154,16 @@ $(function () {
 
 
     $('.col4').hover(function () {
-        ifOverCol4 = 1;
-        $('.colHead4').find('img').attr("src", srcImg);
+        if(freezeOrNot == 0){
+            ifOverCol4 = 1;
+            $('.colHead4').find('img').attr("src", srcImg);
+        } 
     }, function () {
         ifOverCol4 = 0;
         $('.colHead4').find('img').attr("src", "");
     });
     $(".col4").on("click", function () {
-        if (ifOverCol4) {
+        if (ifOverCol4  && freezeOrNot == 0) {
             if (!$('.item39').find('img').attr('src')) {
                 $('.item39').find('img').attr('src', srcImg);
                 clickedItem = 39;
@@ -271,14 +198,16 @@ $(function () {
 
 
     $('.col5').hover(function () {
-        ifOverCol5 = 1;
-        $('.colHead5').find('img').attr("src", srcImg);
+        if(freezeOrNot == 0){
+            ifOverCol5 = 1;
+            $('.colHead5').find('img').attr("src", srcImg);
+        } 
     }, function () {
         ifOverCol5 = 0;
         $('.colHead5').find('img').attr("src", "");
     });
     $(".col5").on("click", function () {
-        if (ifOverCol5) {
+        if (ifOverCol5  && freezeOrNot == 0) {
             if (!$('.item40').find('img').attr('src')) {
                 $('.item40').find('img').attr('src', srcImg);
                 clickedItem = 40;
@@ -312,14 +241,16 @@ $(function () {
     });
 
     $('.col6').hover(function () {
-        ifOverCol6 = 1;
-        $('.colHead6').find('img').attr("src", srcImg);
+        if(freezeOrNot == 0){
+            ifOverCol6 = 1;
+            $('.colHead6').find('img').attr("src", srcImg);
+        } 
     }, function () {
         ifOverCol6 = 0;
         $('.colHead6').find('img').attr("src", "");
     });
     $(".col6").on("click", function () {
-        if (ifOverCol6) {
+        if (ifOverCol6  && freezeOrNot == 0) {
             if (!$('.item41').find('img').attr('src')) {
                 $('.item41').find('img').attr('src', srcImg);
                 clickedItem = 41;
@@ -352,15 +283,19 @@ $(function () {
         }
     });
 
+
+
     $('.col7').hover(function () {
-        ifOverCol7 = 1;
-        $('.colHead7').find('img').attr("src", srcImg);
+        if(freezeOrNot == 0){
+            ifOverCol7 = 1;
+            $('.colHead7').find('img').attr("src", srcImg);
+        } 
     }, function () {
         ifOverCol7 = 0;
         $('.colHead7').find('img').attr("src", "");
     });
     $(".col7").on("click", function () {
-        if (ifOverCol7) {
+        if (ifOverCol7  && freezeOrNot == 0) {
             if (!$('.item42').find('img').attr('src')) {
                 $('.item42').find('img').attr('src', srcImg);
                 clickedItem = 42;
@@ -486,7 +421,7 @@ $(function () {
                     hightlight.push($(value).attr("num"));
                 });
                 socket.emit("hightlight",hightlight);
-                $('.overlap').show();
+                socket.emit("gameover");
                 
             }, 100);
         }else{
@@ -544,7 +479,8 @@ $(function () {
                     hightlight.push($(value).attr("num"));
                 });
                 socket.emit("hightlight",hightlight);
-                $('.overlap').show();
+                socket.emit("gameover");
+
             }, 100);
 
         }else{
@@ -639,7 +575,8 @@ $(function () {
                     hightlight.push($(value).attr("num"));
                 });
                 socket.emit("hightlight",hightlight);
-                $('.overlap').show();
+                socket.emit("gameover");
+
             }, 100);
 
         }else{
@@ -734,7 +671,8 @@ $(function () {
                     hightlight.push($(value).attr("num"));
                 });
                 socket.emit("hightlight",hightlight);
-                $('.overlap').show();
+                socket.emit("gameover");
+
             }, 100);
 
         }else{
@@ -749,6 +687,92 @@ $(function () {
     });
 
     
+
+
+
+
+
+
+
+    
+    
+    
+    
+    $(".colHead, .item").click(function(e){
+        console.log(this);
+    
+        socket.emit('input',{
+            item: clickedItem,
+            flag: srcImg
+        });
+        socket.emit('shiftTurn');
+        // ifFreeze = 1;
+        // socket.emit('shiftTurn');
+        // if(ifFreeze){
+        //     $('.overlap').show();
+        //     socket.emit('shiftTurn');
+        // }
+    });
+
+    socket.on('shiftTurnSync',()=>{
+        if(ifFreeze == 0){
+            $('.overlap').show();
+            ifFreeze = 1;
+        }else{
+            $('.overlap').hide();
+            ifFreeze = 0;
+        }
+        
+    });
+    
+
+    socket.on('identity',(data)=>{
+    
+        if(data==0){
+            ifFreeze = 0;
+            $('.identity').html('You are Canada(player1)');
+            $('.notice').html("Wait for Another Player");
+            srcImg = './img/canada.png';
+        }
+        if(data==1){
+            ifFreeze = 1;
+            $('.overlap').show();
+            $('.identity').html('You are USA(player2)');
+            srcImg = './img/usa.png';
+        }
+
+        if(data>1){
+            $('.identity').html("Watch Game Only");
+            document.addEventListener('click',function(e){
+                e.stopPropagation();
+                return false;
+            },true);
+            
+        }
+    });
+
+    socket.on('sync',(data)=>{
+        $('.item').eq(data.item-1).find('img').attr('src',data.flag);
+        
+    });
+    
+    socket.on('syncWin',(data)=>{
+        $('.notice').html(data);
+    });
+
+    socket.on("hightlightSync",(data)=>{
+        $.each(data,function(i,v){
+            $('.item').eq(v-1).css('background-color','yellow');
+        });
+    });
+
+    socket.on('reload',()=>{
+        window.location.reload();
+    });
+
+    socket.on("gameoverSync",()=>{
+        freezeOrNot = 1;
+    });
 
 
 
