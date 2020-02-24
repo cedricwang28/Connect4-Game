@@ -12,6 +12,7 @@ $(function () {
     let ifConnect = 0;
     let hightlight = [];
     let freezeOrNot = 0;
+    let player;
 
     $('.col1').hover(function () {
         if(freezeOrNot == 0){
@@ -422,8 +423,9 @@ $(function () {
                 });
                 socket.emit("hightlight",hightlight);
                 socket.emit("gameover");
+              
                 
-            }, 100);
+            }, 50);
         }else{
             $('.showConnection').removeClass('showConnection');
         }
@@ -480,8 +482,8 @@ $(function () {
                 });
                 socket.emit("hightlight",hightlight);
                 socket.emit("gameover");
-
-            }, 100);
+               
+            }, 50);
 
         }else{
             $('.showConnection').removeClass('showConnection');
@@ -576,8 +578,8 @@ $(function () {
                 });
                 socket.emit("hightlight",hightlight);
                 socket.emit("gameover");
-
-            }, 100);
+               
+            }, 50);
 
         }else{
             $('.showConnection').removeClass('showConnection');
@@ -672,8 +674,8 @@ $(function () {
                 });
                 socket.emit("hightlight",hightlight);
                 socket.emit("gameover");
-
-            }, 100);
+               
+            }, 50);
 
         }else{
             $('.showConnection').removeClass('showConnection');
@@ -699,7 +701,6 @@ $(function () {
     
     
     $(".colHead, .item").click(function(e){
-        console.log(this);
     
         socket.emit('input',{
             item: clickedItem,
@@ -717,9 +718,11 @@ $(function () {
     socket.on('shiftTurnSync',()=>{
         if(ifFreeze == 0){
             $('.overlap').show();
+            $('.notice').html("<p style='color:purple;'>Your Rival's Turn</p>");
             ifFreeze = 1;
         }else{
             $('.overlap').hide();
+            $('.notice').html("<p style='color:#064479;'>Your Turn ^_^</p>");
             ifFreeze = 0;
         }
         
@@ -730,14 +733,18 @@ $(function () {
     
         if(data==0){
             ifFreeze = 0;
+            player = 1;
             $('.identity').html('You are Canada(player1)');
             $('.notice').html("Wait for Another Player");
+            $('.overlap').show();
             srcImg = './img/canada.png';
         }
         if(data==1){
             ifFreeze = 1;
+            player = 2;
             $('.overlap').show();
             $('.identity').html('You are USA(player2)');
+            $('.notice').html("<p style='color:purple;'>Your Rival's Turn</p>");
             srcImg = './img/usa.png';
         }
 
@@ -748,6 +755,13 @@ $(function () {
                 return false;
             },true);
             
+        }
+    });
+
+    socket.on('start',()=>{
+        if(player == 1){
+            $('.notice').html("<p style='color:#064479;'>Your Turn ^_^</p>");
+            $('.overlap').hide();
         }
     });
 
@@ -772,6 +786,7 @@ $(function () {
 
     socket.on("gameoverSync",()=>{
         freezeOrNot = 1;
+        $('.overlap').show();
     });
 
 

@@ -37,6 +37,9 @@ io.on('connection',function(socket){
     if(connections.length == 1){
         socket.emit('wait');
     }
+    if(connections.length == 2){
+        io.emit('start');
+    }
 
 
     socket.on('disconnect',()=>{

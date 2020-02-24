@@ -36,24 +36,23 @@ main{
     grid-template-columns: repeat(7,1fr);
     
 }
-main div{
-    
 
-}
 .item{
     padding:5px;
 }
-.item div{
+.item>div{
     border-radius: 50%;
     width: 50px;
     height: 50px;
     background-color: #fff;
-    
+    clear: both;
 }
+
 
 img{
     width: 50px;
     height: 50px;
+
 }
 
 .wrap{
@@ -96,9 +95,9 @@ section{
 
 nav{
     display: flex;
-    width: 430px;
+    width: 480px;
     height: 50px;
-    background-color: yellowgreen;
+    background-color: #beea97;
     margin:0 auto;
     border-radius: 5px;
 }
@@ -116,7 +115,7 @@ nav div{
 .notice{
     color: red;
     font-family: 'Odibee Sans' ;
-    font-size: 22px;
+    font-size: 24px;
 }
 
 .showConnection{
@@ -144,6 +143,7 @@ nav div{
     z-index: 10;
     background-color:grey;
     color: white;
+    border:0px;
 }
 .restart:hover{
     cursor: pointer;
