@@ -17,34 +17,34 @@ $(function () {
     $('.col1').hover(function () {
         if(freezeOrNot == 0){
             ifOverCol1 = 1;
-            $('.colHead1').find('img').attr("src", srcImg);
+            $('.colHead1>div').append(`<img src=${srcImg} alt="">`);
         } 
 
     }, function () {
         ifOverCol1 = 0;
-        $('.colHead1').find('img').attr("src", "");
+        $('.colHead1>div').empty()
 
     });
     $(".col1").on("click", function () {
 
         if (ifOverCol1 && freezeOrNot == 0) {
-            if (!$('.item36').find('img').attr('src')) {
-                $('.item36').find('img').attr('src', srcImg);
+            if (!$('.item36').find('img').length) {
+                $('.item36>div').append(`<img src=${srcImg} alt="">`);
                 clickedItem = 36;
-            } else if (!$('.item29').find('img').attr('src')) {
-                $('.item29').find('img').attr('src', srcImg);
+            } else if (!$('.item29').find('img').length) {
+                $('.item29>div').append(`<img src=${srcImg} alt="">`);
                 clickedItem = 29;
-            } else if (!$('.item22').find('img').attr('src')) {
-                $('.item22').find('img').attr('src', srcImg);
+            } else if (!$('.item22').find('img').length) {
+                $('.item22>div').append(`<img src=${srcImg} alt="">`);
                 clickedItem = 22;
-            } else if (!$('.item15').find('img').attr('src')) {
-                $('.item15').find('img').attr('src', srcImg);
+            } else if (!$('.item15').find('img').length) {
+                $('.item15>div').append(`<img src=${srcImg} alt="">`);
                 clickedItem = 15;
-            } else if (!$('.item8').find('img').attr('src')) {
-                $('.item8').find('img').attr('src', srcImg);
+            } else if (!$('.item8').find('img').length) {
+                $('.item8>div').append(`<img src=${srcImg} alt="">`);
                 clickedItem = 8;
             } else {
-                $('.item1').find('img').attr('src', srcImg);
+                $('.item1>div').append(`<img src=${srcImg} alt="">`);
                 clickedItem = 1;
             }
 
@@ -67,11 +67,11 @@ $(function () {
     $('.col2').hover(function () {
         if(freezeOrNot == 0){
             ifOverCol2 = 1;
-            $('.colHead2').find('img').attr("src", srcImg);
+            $('.colHead2>div').append(`<img src=${srcImg} alt="">`);
         } 
     }, function () {
         ifOverCol2 = 0;
-        $('.colHead2').find('img').attr("src", "");
+        $('.colHead2>div').empty()
     });
     $(".col2").on("click", function () {
         if (ifOverCol2  && freezeOrNot == 0) {
@@ -112,11 +112,11 @@ $(function () {
     $('.col3').hover(function () {
         if(freezeOrNot == 0){
             ifOverCol3 = 1;
-            $('.colHead3').find('img').attr("src", srcImg);
+            $('.colHead3>div').append(`<img src=${srcImg} alt="">`);
         } 
     }, function () {
         ifOverCol3 = 0;
-        $('.colHead3').find('img').attr("src", "");
+        $('.colHead3>div').empty()
     });
     $(".col3").on("click", function () {
         if (ifOverCol3  && freezeOrNot == 0) {
@@ -157,11 +157,11 @@ $(function () {
     $('.col4').hover(function () {
         if(freezeOrNot == 0){
             ifOverCol4 = 1;
-            $('.colHead4').find('img').attr("src", srcImg);
+            $('.colHead4>div').append(`<img src=${srcImg} alt="">`);
         } 
     }, function () {
         ifOverCol4 = 0;
-        $('.colHead4').find('img').attr("src", "");
+        $('.colHead4>div').empty()
     });
     $(".col4").on("click", function () {
         if (ifOverCol4  && freezeOrNot == 0) {
@@ -201,11 +201,11 @@ $(function () {
     $('.col5').hover(function () {
         if(freezeOrNot == 0){
             ifOverCol5 = 1;
-            $('.colHead5').find('img').attr("src", srcImg);
+            $('.colHead5>div').append(`<img src=${srcImg} alt="">`);
         } 
     }, function () {
         ifOverCol5 = 0;
-        $('.colHead5').find('img').attr("src", "");
+        $('.colHead5>div').empty()
     });
     $(".col5").on("click", function () {
         if (ifOverCol5  && freezeOrNot == 0) {
@@ -244,11 +244,11 @@ $(function () {
     $('.col6').hover(function () {
         if(freezeOrNot == 0){
             ifOverCol6 = 1;
-            $('.colHead6').find('img').attr("src", srcImg);
+            $('.colHead6>div').append(`<img src=${srcImg} alt="">`);
         } 
     }, function () {
         ifOverCol6 = 0;
-        $('.colHead6').find('img').attr("src", "");
+        $('.colHead6>div').empty()
     });
     $(".col6").on("click", function () {
         if (ifOverCol6  && freezeOrNot == 0) {
@@ -289,11 +289,11 @@ $(function () {
     $('.col7').hover(function () {
         if(freezeOrNot == 0){
             ifOverCol7 = 1;
-            $('.colHead7').find('img').attr("src", srcImg);
+            $('.colHead7>div').append(`<img src=${srcImg} alt="">`);
         } 
     }, function () {
         ifOverCol7 = 0;
-        $('.colHead7').find('img').attr("src", "");
+        $('.colHead7>div').empty()
     });
     $(".col7").on("click", function () {
         if (ifOverCol7  && freezeOrNot == 0) {
@@ -328,12 +328,6 @@ $(function () {
             checkBackward(clickedItem);
         }
     });
-
-
-
-
-
-
 
 
     function checkHorizontal(itemNum) {
@@ -766,7 +760,11 @@ $(function () {
     });
 
     socket.on('sync',(data)=>{
-        $('.item').eq(data.item-1).find('img').attr('src',data.flag);
+        let item = $('.item').eq(data.item-1)
+        console.log(item);
+        if(!item.find('img').length){
+            item.find('div').append(`<img src=${data.flag} alt="" />`);
+        }
         
     });
     
